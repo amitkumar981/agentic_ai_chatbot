@@ -27,11 +27,18 @@ class LoadStreamlitUI:
                 self.user_controls["selected_groq_model"] = st.selectbox("Select Model", model_options)
                 self.user_controls["GROQ_API_KEY"] = st.session_state["GROQ_API_KEY"]=st.text_input("API Key",type="password")
                 # Validate API key
+
                 if not self.user_controls["GROQ_API_KEY"]:
                     st.warning("⚠️ Please enter your GROQ API key to proceed. Don't have? refer : https://console.groq.com/keys ")
             
             ## USecase selection
             self.user_controls["selected_usecase"]=st.selectbox("Select Usecases",usecase_options)
+
+            if usecase_options['selected_usecase']=='Chatbot_with_tools':
+                os.environ['TEVILY_API_KEY']=self.user_controls('TEVILY_API_KEY')=st.session_state['TEVILY_API_KEY']=st.text_input('TEVILY_API_KEY',type='passward')
+
+                if not self.user_controls['TEVILY_API_KEY']:
+                    st.warning('please enter your TEVILY_API_KEY')
 
         return self.user_controls
 

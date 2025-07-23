@@ -37,15 +37,15 @@ class LoadStreamlitUI:
                 if not self.user_controls['TEVILY_API_KEY']:
                     st.warning('⚠️ Please enter your TEVILY_API_KEY.')
 
-            if self.user_controls['selected_usecase'] == "AI News":
-                st.subheader("📰 AI News Explorer")
+            if self.user_controls['selected_usecase'] == "News":
+                st.subheader("📰 News Explorer")
                 time_frame = st.selectbox(
                     "📅 Select Time Frame",
                     ["Daily", "Weekly", "Monthly"],
                     index=0
                 )
 
-                if st.button("🔍 Fetch Latest AI News", use_container_width=True):
+                if st.button("🔍 Fetch Latest News", use_container_width=True):
                     st.session_state.IsFetchButtonClicked = True
                     st.session_state.timeframe = time_frame
 

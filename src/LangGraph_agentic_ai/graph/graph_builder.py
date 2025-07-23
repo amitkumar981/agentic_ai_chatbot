@@ -2,6 +2,7 @@ from langgraph.graph import StateGraph,START,END
 from src.LangGraph_agentic_ai.nodes.basic_chatbot_node import BasicChatbotNode
 from src.LangGraph_agentic_ai.nodes.chatbot_with_tool_node import ChatbotToolNode
 from src.LangGraph_agentic_ai.tools.get_tools import get_tools,create_tool_node
+from src.LangGraph_agentic_ai.nodes.news_node import News
 from langgraph.prebuilt import ToolNode,tools_condition
 from src.LangGraph_agentic_ai.state.state import State
 class Graph_Builder:
@@ -42,13 +43,31 @@ class Graph_Builder:
                            )
         self.graph_builder.add_edge('tools','chatbot')
         self.graph_builder.add_edge('chatbot',END)
+
+    def summerize_news_graph(self):
+        news_node=News(self.llm)
+
+        #add node
+        self.graph_builder.add_node('fatch_news',News.fatch_news)
+        self.graph_builder.add_node('summerize',News.summerize_news)
+        self.graph_builder.add_node('save_news',News.save_result)
+
+        #add edge
+        self.graph_builder.set_entry_point('fatch_news')
+        self.graph_builder.add_edge('fatch_news','summerize')
+        self.graph_builder.add_edge('summerize','save_news')
+        self.graph_builder.add_edge('save_news',END)
+    
     
     def compile_graph(self,usecase:str):
         if usecase=='Basic Chatbot':
             self.basic_chatbot_graph()
         elif usecase=='Chatbot_with_tools':
             self.chatbot_with_tools_graph()
+        elif usecase=='News':
+            self.summerize_news_graph()
         return self.graph_builder.compile()
+    
     
 
 

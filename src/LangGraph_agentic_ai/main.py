@@ -1,7 +1,7 @@
 import streamlit as st
 from src.LangGraph_agentic_ai.ui.streamlit_ui.load_ui import LoadStreamlitUI
 from src.LangGraph_agentic_ai.LLMS.groq_llm import GROQ_LLM
-from src.LangGraph_agentic_ai.graph.graph_builder import graph_builder
+from src.LangGraph_agentic_ai.graph.graph_builder import Graph_Builder
 from src.LangGraph_agentic_ai.ui.streamlit_ui.display_result import DisplayStreamlitResults
 
 def load_app():
@@ -32,7 +32,7 @@ def load_app():
                 return
 
             # Build and compile the graph
-            builder = graph_builder(model)
+            builder = Graph_Builder(model)
             graph = builder.compile_graph(usecase)
 
             # Display result on UI

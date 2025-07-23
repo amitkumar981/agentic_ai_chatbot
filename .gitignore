@@ -3,3 +3,5 @@ myenv/
 
 # Environment variables
 .env
+
+*.pyc
